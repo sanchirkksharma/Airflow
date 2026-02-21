@@ -1,24 +1,25 @@
-from airflow.sdk import dag,task
-from pendulum import datetime   
-from airflow.timetables.interval import CronDataIntervalTimetable
-from typer import echo
+from airflow.sdk import dag, task
+from pendulum import datetime
+from airflow.decorators import get_current_context
 
 @dag(
-      schedule=CronDataIntervalTimetable("@daily", timezone="America/Los_Angeles"),
-        start_date=datetime(year=2026, month=1, day=17, tz="America/Los_Angeles"),
-        end_date=datetime(year=2026, month=1, day=19, tz="America/Los_Angeles"),
-        catchup=True
+    schedule="@daily",
+    start_date=datetime(2026,1,17,tz="America/Los_Angeles"),
+    end_date=datetime(2026,1,19,tz="America/Los_Angeles"),
+    catchup=True
 )
 def incremental_load_dag():
+
     @task.python
-    def incremental_data_fetch(**kwargs):
-        date_interval_start = kwargs['data_interval_start'] 
-        date_interval_end = kwargs['data_interval_end']
-        print(f"Fetching data from {date_interval_start} to {date_interval_end}")
-    
+    def incremental_data_fetch():
+        ctx = get_current_context()
+        start = ctx["data_interval_start"]
+        end   = ctx["data_interval_end"]
+        print(f"Fetching data from {start} to {end}")
+
     @task.bash
     def incremental_data_process():
-      return echo('"Processing incremental data from {{data_interval_start}} to {{data_interval_end}}"')
+        return 'echo "Processing incremental data from {{ data_interval_start }} to {{ data_interval_end }}"'
 
     incremental_data_fetch() >> incremental_data_process()
 

@@ -52,8 +52,6 @@ def branch_dag():
         else:
             return 'load_task'
 
-
-
     @task.bash
     def load_task(**kwargs):
         print("Loading data to destination.....")

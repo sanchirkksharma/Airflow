@@ -1,8 +1,8 @@
-**Apache Airflow Orchestration Examples**
+# Apache Airflow Orchestration Examples
 This repository contains a collection of Apache Airflow DAGs demonstrating core orchestration patterns, scheduling strategies, and asset-based workflows using the Airflow SDK.
 The project is intended for learning and experimentation with modern Airflow concepts including DAG orchestration, asset dependencies, interval scheduling, and event-driven pipelines.
 
-**Contents**
+# Contents
 
 This repository includes examples of:
 
@@ -14,7 +14,7 @@ This repository includes examples of:
 6. Triggering DAGs from DAGs
 7. Context variables and data intervals
 
-**Project Structure**
+# Project Structure
 dags/
 │
 ├── dag_orchestrate_parent.py
@@ -27,13 +27,13 @@ dags/
 
 Each file demonstrates a specific Airflow orchestration concept.
 
-**Requirements**
+# Requirements
 
 a. Python 3.9+
 b. Apache Airflow 3.x (SDK-based DAGs)
 c. Docker (recommended)
 
-**Running Airflow Locally**
+# Running Airflow Locally
 
 If using Docker:
 
